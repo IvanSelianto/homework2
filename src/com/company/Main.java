@@ -86,13 +86,13 @@ public class Main {
             if (min >= intArray[k]) {
 
                 min = intArray[k];
-                indexMin += k;
+                indexMin = k;
             }
 
             if (max <= intArray[k]) {
 
                 max = intArray[k];
-                indexMax += k;
+                indexMax = k;
             }
 
             k++;
