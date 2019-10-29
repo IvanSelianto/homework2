@@ -13,11 +13,11 @@ public class Main {
         int[] intArray = createArray(4);
 
 
-        System.out.println(checkPalindrome("шалаш"));
+        System.out.println(checkPalindrome("шаkлаш"));
         System.out.println("-----------------------");
         System.out.println(Arrays.toString(intArray));
         System.out.println("-----------------------");
-        System.out.println(checkArray(3, intArray));
+        System.out.println(findPos(3, intArray));
         System.out.println("-----------------------");
         System.out.println(Arrays.toString(swapMinMaxElement(intArray)));
         System.out.println("Среднее арифметическое равно: " + averageOfArray(intArray));
@@ -38,19 +38,20 @@ public class Main {
         // write your code here
     }
 
-    public static String checkPalindrome(String str) {
+    public static boolean checkPalindrome(String str) {
         char[] charArray = str.toCharArray();
         int j = 0;
+        boolean bool = false;
         for (int i = charArray.length - 1; i > -1; i--) {
             if (charArray[i] != charArray[j]) {
 
 
-                return "Нет";
+                return bool;
             } else {
                 j++;
             }
         }
-        return "Да";
+        return !bool;
     }
 
 
@@ -63,58 +64,42 @@ public class Main {
         return intArray;
     }
 
-    public static int checkArray(int x, int[] intArray) {
-        int pos = 0;
+    public static int findPos(int x, int[] intArray) {
 
-        boolean ind = false;
         for (int i = 0; i < intArray.length; i++) {
             if (intArray[i] == x) {
-                ind = true;
-                pos = i;
+                return i;
             }
         }
-        int val = (ind) ? pos : -1;
-        return val;
+        return -1;
 
     }
 
     public static int[] swapMinMaxElement(int[] intArray) {
-
-
-        int k = 0;
-
+        int k = 1;
         int min = intArray[0];
         int max = intArray[0];
-
-        int minElementIndex = intArray[0];
-        int maxElementIndex = intArray[0];
-
+        int indexMin = 0;
+        int indexMax = 0;
         while (k < intArray.length) {
 
-            if (min > intArray[k]) {
+            if (min >= intArray[k]) {
 
                 min = intArray[k];
+                indexMin += k;
             }
 
-            if (max < intArray[k]) {
+            if (max <= intArray[k]) {
 
                 max = intArray[k];
+                indexMax += k;
             }
-            if (min == intArray[k]) {
-                minElementIndex = k;
-            }
-            if (max == intArray[k]) {
-                maxElementIndex = k;
-            }
+
             k++;
         }
-
-        int tempInt = intArray[maxElementIndex];
-        intArray[maxElementIndex] = intArray[minElementIndex];
-        intArray[minElementIndex] = tempInt;
+        intArray[indexMin] = max;
+        intArray[indexMax] = min;
         return intArray;
-
-
     }
 
     public static double averageOfArray(int[] intArray) {
@@ -179,24 +164,20 @@ public class Main {
     }
 
     public static boolean isSorted(int[] intArray) {
-        boolean isSorted = false;
-        boolean[] array = new boolean[intArray.length];
+        boolean isSorted = true;
+
 
         for (int i = 0; i < intArray.length - 1; i++) {
             if (intArray[i] < intArray[i + 1]) {
-                array[i] = true;
+                continue;
 
-            }
-
-        }
-
-        for (int i = 0; i < array.length; i++) {
-            if (!array[i]) {
-                isSorted = true;
+            } else {
+                isSorted = false;
                 break;
-
             }
+
         }
+
         return isSorted;
     }
 
@@ -234,7 +215,6 @@ public class Main {
 
     public static int[][] generateTwoDimensionalArray(int length, int width) {
         int[][] array = new int[length][width];
-        Random r = new Random();
 
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
