@@ -6,68 +6,64 @@ import java.util.Random;
 
 
 public class Main {
+    public static final Random RANDOM = new Random();
 
 
     public static void main(String[] args) {
         int[] intArray = createArray(4);
 
 
-        checkPalindrome("шавлаш");
+        checkPalindrome("шаdлаш");
+        System.out.println("-----------------------");
         System.out.println(Arrays.toString(intArray));
-        checkArray(23, intArray);
-        swapMinMaxElement(intArray);
-        averageOfArray(intArray);
+        System.out.println("-----------------------");
+        System.out.println(checkArray(-3, intArray));
+        System.out.println("-----------------------");
+        System.out.println(Arrays.toString(swapMinMaxElement(intArray)));
+        System.out.println("Среднее арифметическое равно: " + averageOfArray(intArray));
         System.out.println("Количество отрицатлельных элементов массива: " + amountOfNegativeElements(intArray));
+        System.out.println("-----------------------");
         System.out.println(Arrays.toString(deleteElementFromIntArray(3, intArray)));
+        System.out.println("-----------------------");
         System.out.println(Arrays.toString((fromTheEndArray(intArray))));
-        // sortArrayOrNo(intArray);
+        System.out.println("-----------------------");
+        System.out.println(isSorted(sortIntArray(intArray)));
+        System.out.println("-----------------------");
         System.out.println(Arrays.toString(mixArrayElements(intArray)));
+        System.out.println("-----------------------");
         System.out.println(Arrays.toString(sortIntArray(intArray)));
-        System.out.println("------------");
-        printTwoDimensionalArray(generateTwoDimensionalArray(4,5));
+        System.out.println("-----------------------");
+        printTwoDimensionalArray(generateTwoDimensionalArray(4, 5));
 
         // write your code here
     }
 
     public static void checkPalindrome(String str) {
         char[] charArray = str.toCharArray();
-        char[] charArrayAtFirst = new char[charArray.length];
-        char[] charArrayFromTheEnd = new char[charArray.length];
-        boolean k = false;
-        for (int i = 0; i < charArray.length; i++) {
-            charArrayAtFirst[i] = charArray[i];
-        }
-
+        int j = 0;
         for (int i = charArray.length - 1; i > -1; i--) {
-            charArrayFromTheEnd[i] = charArray[i];
-        }
-        for (int i = 0; i < charArray.length - 1; i++) {
-            if (charArrayAtFirst[i] != charArrayFromTheEnd[i]) {
-                System.out.println("Строка не является палиндромом");
-                break;
+            if (charArray[i] != charArray[j]) {
+                System.out.println("Строка  не является палиндромом");
+
+                return;
             } else {
-                k = true;
+                j++;
             }
-
         }
-        if (k == true) {
-            System.out.println("Строка является палиндромом");
-        }
-//Подскажи, пожалуйста, как написать правильно, не переписывая здесь весь код, я знаю, что этот метод не работает
-
+        System.out.println("Строка является палиндромом");
     }
+
 
     public static int[] createArray(int n) {
 
         int[] intArray = new int[n];
-        Random r = new Random();
         for (int i = 0; i < intArray.length; i++) {
-            intArray[i] = r.nextInt(100) - 50;
+            intArray[i] = RANDOM.nextInt(100) - 50;
         }
         return intArray;
     }
 
-    public static void checkArray(int x, int[] intArray) {
+    public static int checkArray(int x, int[] intArray) {
 
         boolean ind = false;
         for (int i = 0; i < intArray.length; i++) {
@@ -76,14 +72,12 @@ public class Main {
                 ind = true;
             }
         }
-        if (ind == false) {
-            System.out.println(-1);
-
-        }
+        int val = (ind) ? 1 : -1;
+        return val;
 
     }
 
-    public static void swapMinMaxElement(int[] intArray) {
+    public static int[] swapMinMaxElement(int[] intArray) {
         int[] arrayOfNumbers = intArray;
 
         int k = 0;
@@ -110,36 +104,37 @@ public class Main {
 
                 max = arrayOfNumbers[i];
             }
+            if (min == arrayOfNumbers[i]) {
+                minElementIndex = i;
+            }
+            if (max == arrayOfNumbers[i]) {
+                maxElementIndex = i;
+            }
             i++;
         }
 
         for (int j = 0; j < arrayOfNumbers.length; j++) {
-            if (min == arrayOfNumbers[j]) {
-                minElementIndex = j;
-            }
-            if (max == arrayOfNumbers[j]) {
-                maxElementIndex = j;
-            }
+
         }
         int tempInt = arrayOfNumbers[maxElementIndex];
         arrayOfNumbers[maxElementIndex] = arrayOfNumbers[minElementIndex];
         arrayOfNumbers[minElementIndex] = tempInt;
-        System.out.println(Arrays.toString(arrayOfNumbers));
+        return arrayOfNumbers;
 
 
     }
 
-    public static void averageOfArray(int[] intArray) {
-        int[] arrayOfNumbers = intArray;
+    public static double averageOfArray(int[] intArray) {
+
 
         int i = 0;
         int allAmount = 0;
         do {
-            allAmount += arrayOfNumbers[i];
+            allAmount += intArray[i];
             i++;
 
-        } while (i < arrayOfNumbers.length);
-        System.out.println("Среднее арифметическое массива будет равно:" + (double) allAmount / arrayOfNumbers.length);
+        } while (i < intArray.length);
+        return (double) (allAmount / intArray.length);
     }
 
     public static int amountOfNegativeElements(int[] intArray) {
@@ -154,11 +149,16 @@ public class Main {
     }
 
     public static int[] deleteElementFromIntArray(int n, int[] intArray) {
-        int[] copiedArray = intArray;
         int[] resultArray = new int[intArray.length - 1];
         int j = 0;
+        int[] outOfBoundsException = new int[1];
+        if (n > intArray.length - 1) {
+            outOfBoundsException[0] = -1;
+            return outOfBoundsException;
+        }
+
         for (int i = 0; i < intArray.length; i++) {
-            if (copiedArray[i] == intArray[n]) {
+            if (intArray[i] == intArray[n]) {
                 continue;
             } else {
                 resultArray[j] = intArray[i];
@@ -168,7 +168,10 @@ public class Main {
             }
 
         }
+
+
         return resultArray;
+
     }
 
     public static int[] fromTheEndArray(int[] intArray) {
@@ -182,7 +185,8 @@ public class Main {
         return arrayFromTheEnd;
     }
 
-    public static void sortArrayOrNo(int[] intArray) {
+    public static boolean isSorted(int[] intArray) {
+        boolean isSorted = false;
         boolean[] array = new boolean[intArray.length];
 
         for (int i = 0; i < intArray.length - 1; i++) {
@@ -195,18 +199,19 @@ public class Main {
 
         for (int i = 0; i < array.length; i++) {
             if (!array[i]) {
-                System.out.println("Массив не отсортирован по возрастанию");
+                isSorted = true;
                 break;
 
             }
         }
+        return  isSorted;
     }
-    // Как написать об отсортировке массива?
+
+
     public static int[] mixArrayElements(int[] intArray) {
-        Random r = new Random();
 
         for (int i = 0; i < intArray.length; i++) {
-            int index = r.nextInt(i + 1);
+            int index = RANDOM.nextInt(i + 1);
             int j = intArray[index];
             intArray[index] = intArray[i];
             intArray[i] = j;
@@ -221,9 +226,9 @@ public class Main {
         for (int j = 0; j < intArray.length; j++) {
             for (int i = 0; i < intArray.length - 1; i++) {
                 if (intArray[i] > intArray[i + 1]) {
-                    int max = intArray[i];
+                    int temp = intArray[i];
                     intArray[i] = intArray[i + 1];
-                    intArray[i + 1] = max;
+                    intArray[i + 1] = temp;
 
                 }
             }
@@ -233,13 +238,14 @@ public class Main {
 
         return intArray;
     }
+
     public static int[][] generateTwoDimensionalArray(int length, int width) {
         int[][] array = new int[length][width];
         Random r = new Random();
 
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
-                array[i][j] = r.nextInt(10) - 5;
+                array[i][j] = RANDOM.nextInt((10) - 5);
 
 
             }
@@ -249,6 +255,7 @@ public class Main {
 
         return array;
     }
+
     public static void printTwoDimensionalArray(int[][] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.println(Arrays.toString(array[i]));
