@@ -76,7 +76,7 @@ public class Main {
     }
 
     public static int[] swapMinMaxElement(int[] intArray) {
-        int k = 1;
+        int k = 0;
         int min = intArray[0];
         int max = intArray[0];
         int indexMin = 0;
