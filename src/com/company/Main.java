@@ -13,19 +13,19 @@ public class Main {
         int[] intArray = createArray(4);
 
 
-        checkPalindrome("шаdлаш");
+        System.out.println(checkPalindrome("шалаш"));
         System.out.println("-----------------------");
         System.out.println(Arrays.toString(intArray));
         System.out.println("-----------------------");
-        System.out.println(checkArray(-3, intArray));
+        System.out.println(checkArray(3, intArray));
         System.out.println("-----------------------");
         System.out.println(Arrays.toString(swapMinMaxElement(intArray)));
         System.out.println("Среднее арифметическое равно: " + averageOfArray(intArray));
         System.out.println("Количество отрицатлельных элементов массива: " + amountOfNegativeElements(intArray));
         System.out.println("-----------------------");
-        System.out.println(Arrays.toString(deleteElementFromIntArray(3, intArray)));
+        System.out.println(Arrays.toString(deleteElementFromIntArray(7, intArray)));
         System.out.println("-----------------------");
-        System.out.println(Arrays.toString((fromTheEndArray(intArray))));
+        System.out.println(Arrays.toString((reverseArray(intArray))));
         System.out.println("-----------------------");
         System.out.println(isSorted(sortIntArray(intArray)));
         System.out.println("-----------------------");
@@ -38,19 +38,19 @@ public class Main {
         // write your code here
     }
 
-    public static void checkPalindrome(String str) {
+    public static String checkPalindrome(String str) {
         char[] charArray = str.toCharArray();
         int j = 0;
         for (int i = charArray.length - 1; i > -1; i--) {
             if (charArray[i] != charArray[j]) {
-                System.out.println("Строка  не является палиндромом");
 
-                return;
+
+                return "Нет";
             } else {
                 j++;
             }
         }
-        System.out.println("Строка является палиндромом");
+        return "Да";
     }
 
 
@@ -64,62 +64,55 @@ public class Main {
     }
 
     public static int checkArray(int x, int[] intArray) {
+        int pos = 0;
 
         boolean ind = false;
         for (int i = 0; i < intArray.length; i++) {
             if (intArray[i] == x) {
-                System.out.println("Ваше число " + x + " находится на позиции номер " + i);
                 ind = true;
+                pos = i;
             }
         }
-        int val = (ind) ? 1 : -1;
+        int val = (ind) ? pos : -1;
         return val;
 
     }
 
     public static int[] swapMinMaxElement(int[] intArray) {
-        int[] arrayOfNumbers = intArray;
+
 
         int k = 0;
-        int i = 0;
 
-        int min = arrayOfNumbers[0];
-        int max = arrayOfNumbers[0];
+        int min = intArray[0];
+        int max = intArray[0];
 
-        int minElementIndex = arrayOfNumbers[0];
-        int maxElementIndex = arrayOfNumbers[0];
+        int minElementIndex = intArray[0];
+        int maxElementIndex = intArray[0];
 
-        while (k < arrayOfNumbers.length) {
+        while (k < intArray.length) {
 
-            if (min > arrayOfNumbers[k]) {
+            if (min > intArray[k]) {
 
-                min = arrayOfNumbers[k];
+                min = intArray[k];
+            }
+
+            if (max < intArray[k]) {
+
+                max = intArray[k];
+            }
+            if (min == intArray[k]) {
+                minElementIndex = k;
+            }
+            if (max == intArray[k]) {
+                maxElementIndex = k;
             }
             k++;
         }
 
-        while (i < arrayOfNumbers.length) {
-
-            if (max < arrayOfNumbers[i]) {
-
-                max = arrayOfNumbers[i];
-            }
-            if (min == arrayOfNumbers[i]) {
-                minElementIndex = i;
-            }
-            if (max == arrayOfNumbers[i]) {
-                maxElementIndex = i;
-            }
-            i++;
-        }
-
-        for (int j = 0; j < arrayOfNumbers.length; j++) {
-
-        }
-        int tempInt = arrayOfNumbers[maxElementIndex];
-        arrayOfNumbers[maxElementIndex] = arrayOfNumbers[minElementIndex];
-        arrayOfNumbers[minElementIndex] = tempInt;
-        return arrayOfNumbers;
+        int tempInt = intArray[maxElementIndex];
+        intArray[maxElementIndex] = intArray[minElementIndex];
+        intArray[minElementIndex] = tempInt;
+        return intArray;
 
 
     }
@@ -151,10 +144,10 @@ public class Main {
     public static int[] deleteElementFromIntArray(int n, int[] intArray) {
         int[] resultArray = new int[intArray.length - 1];
         int j = 0;
-        int[] outOfBoundsException = new int[1];
+
         if (n > intArray.length - 1) {
-            outOfBoundsException[0] = -1;
-            return outOfBoundsException;
+            System.err.println("Число n превышает длину массива");
+            return intArray;
         }
 
         for (int i = 0; i < intArray.length; i++) {
@@ -174,15 +167,15 @@ public class Main {
 
     }
 
-    public static int[] fromTheEndArray(int[] intArray) {
+    public static int[] reverseArray(int[] intArray) {
         int j = 0;
 
-        int[] arrayFromTheEnd = new int[intArray.length];
+        int[] reverseArray = new int[intArray.length];
         for (int i = intArray.length - 1; i > -1; i--) {
-            arrayFromTheEnd[j] = intArray[i];
+            reverseArray[j] = intArray[i];
             j++;
         }
-        return arrayFromTheEnd;
+        return reverseArray;
     }
 
     public static boolean isSorted(int[] intArray) {
@@ -204,7 +197,7 @@ public class Main {
 
             }
         }
-        return  isSorted;
+        return isSorted;
     }
 
 
@@ -250,7 +243,7 @@ public class Main {
 
             }
 
-            // write your code here
+
         }
 
         return array;
