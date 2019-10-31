@@ -41,17 +41,16 @@ public class Main {
     public static boolean checkPalindrome(String str) {
         char[] charArray = str.toCharArray();
         int j = 0;
-        boolean bool = false;
         for (int i = charArray.length - 1; i > -1; i--) {
             if (charArray[i] != charArray[j]) {
 
 
-                return bool;
+                return false;
             } else {
                 j++;
             }
         }
-        return !bool;
+        return true;
     }
 
 
@@ -164,7 +163,6 @@ public class Main {
     }
 
     public static boolean isSorted(int[] intArray) {
-        boolean isSorted = true;
 
 
         for (int i = 0; i < intArray.length - 1; i++) {
@@ -172,13 +170,12 @@ public class Main {
                 continue;
 
             } else {
-                isSorted = false;
-                break;
+                return false;
             }
 
         }
 
-        return isSorted;
+        return true;
     }
 
 
@@ -219,11 +216,7 @@ public class Main {
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
                 array[i][j] = RANDOM.nextInt((10) - 5);
-
-
             }
-
-
         }
 
         return array;
@@ -232,9 +225,9 @@ public class Main {
     public static void printTwoDimensionalArray(int[][] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.println(Arrays.toString(array[i]));
+
         }
     }
-}
 
 
 
